@@ -1,30 +1,23 @@
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from vector import retriever
+# from vector import retriever
 
-# import model 
-model = OllamaLLM(model="llama3.2")
+# load model 
+model = OllamaLLM(model="llama3.2:1b")
 
-# chat template 
 template = """
-You are expert in answering quiestions about a pizza restaurant
+You are expert in answering quiestions about a restaurant
 
-Here are some relevent reviews : { review }
+Here are some relevent reviews : {reviews}
 
-Here is a question to answer : { question }
-
+Here is a question to answer : {question}
 """
-
+# prompt template 
 prompt = ChatPromptTemplate.from_template(template)
+
+# chain pipeline *LCEL 
 chain = prompt | model
 
-while 1:
-    print("\n\n-------------------------------")
-    question = input("Ask your question (q to quit): ")
-    print("\n\n")
-    if question == "q":
-        break
-    reviews = retriever.invoke(question)
-    result = chain.invoke({"reviews" : reviews, "question" : question})
-    print(result)
-        
+response = chain.invoke({"reviews" : [], "question" : "What is the most popular food"})
+
+print(response)
