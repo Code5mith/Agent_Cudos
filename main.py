@@ -1,6 +1,6 @@
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-# from vector import retriever
+from vector_store import retriever as retrieve
 
 # load model 
 model = OllamaLLM(model="llama3.2:1b")
@@ -15,9 +15,16 @@ Here is a question to answer : {question}
 # prompt template 
 prompt = ChatPromptTemplate.from_template(template)
 
-# chain pipeline *LCEL 
-chain = prompt | model
+while 1:
 
-response = chain.invoke({"reviews" : [], "question" : "What is the most popular food"})
+    user_prompt = input("Hello there i am Agent Cudos what can help you today ( q to quit ) : ")
 
-print(response)
+    if user_prompt == "q":
+        print("Bye")        
+        break
+    else:
+        # chain pipeline *LCEL 
+        chain = prompt | model
+        reviews = retrieve.invoke(user_prompt)
+        response = chain.invoke({"reviews" : reviews, "question" : user_prompt})
+        print(response)
