@@ -1,5 +1,11 @@
 ### **Restaurant Review Q\&A Bot**
 
+
+
+https://github.com/user-attachments/assets/4421439e-b3c6-40b9-be31-55f77003187e
+
+
+
 This project is a command-line application that acts as a Q\&A bot for a restaurant. It leverages a Retrieval-Augmented Generation (RAG) pipeline built with LangChain to provide insightful, context-aware answers to user questions based on a collection of restaurant reviews.
 
 ### **Core Functionality**
